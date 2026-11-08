@@ -1,45 +1,23 @@
-import React, {useState, useEffect}from 'react'
-import Header from './components/header/Header';
-import "./App.css"
-import Home from './components/home/Home';
-import About from './components/about/About';
-import Skill from "./components/skill/Skill";
-import Education from './components/education/Education';
-import Experience from './components/education/Experience';
-import Work from './components/work/Work';
-import Contact from './components/contact/Contact';
-import Footer from './components/footer/Footer';
-import Preloader from './components/preloader/Preloader';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Prompts from "./pages/Prompts";
+import PromptDetail from "./pages/PromptDetail";
+import NotFound from "./pages/NotFound";
 
-const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(()=> {
-    setTimeout(()=> {
-      setIsLoading(false)
-    },4000)
+const App = () => (
+  <MotionConfig reducedMotion="user">
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="prompts" element={<Prompts />} />
+        <Route path="prompts/:slug" element={<PromptDetail />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  </MotionConfig>
+);
 
-  },[])
-
-  return (
-    <>
-      {
-        isLoading ? 
-          <Preloader /> : 
-          <div className='App'>
-            <Header />
-            <Home />
-            <About />
-            <Skill />
-            <Experience />
-            <Education />
-            <Work />
-            <Contact />
-            <Footer />
-          </div>
-      }
-    </>
-  )
-}
-
-export default App
+export default App;

@@ -8,13 +8,13 @@ A modern, responsive portfolio website showcasing my skills, experience, and pro
 
 ## 👨‍💻 About Me
 
-I'm **Adarsh Priyadarshi**, a passionate Full Stack Developer with 1+ years of experience in MERN Stack development. Currently working at **Indian App Guy** as a Full Stack Developer, I specialize in creating innovative solutions using modern web technologies.
+I'm **Adarsh Priyadarshi**, a passionate Full Stack Developer with 3+ years of experience in MERN Stack development. Currently working at **Indian App Guy** as a Full Stack Developer, I specialize in creating innovative solutions using modern web technologies.
 
 ### 🏆 Achievements
 - **National Merit-cum-Means Scholarship (NMMS)** recipient
 - **First Employee** at Indian App Guy
 - **Team Leader** experience in hiring and developing teams
-- **1+ years** of professional experience in MERN Stack
+- **3+ years** of professional experience in MERN Stack
 
 ## 💼 Experience
 
@@ -66,21 +66,35 @@ I'm **Adarsh Priyadarshi**, a passionate Full Stack Developer with 1+ years of e
 - **Features:** URL shortening with caching and analytics
 - [Live Demo](https://urlconvertor.netlify.app)
 
-## 🎨 Portfolio Features
+## ⚡ Prompt Library — publishing a reel guide
 
-- **Responsive Design** - Works on all devices
-- **Modern UI/UX** - Clean and professional interface
-- **Interactive Animations** - Smooth transitions and hover effects
-- **Contact Form** - Integrated with EmailJS
-- **Performance Optimized** - Fast loading and SEO friendly
+Every Instagram reel gets its own shareable guide page at `/prompts/<slug>`.
+
+1. Open `src/data/prompts.js` and copy the template entry to the top of the list.
+2. Set a unique `slug`, fill in the title, summary, reel URL, prompts, steps and tips.
+3. Set `draft: false`, then commit and push. Netlify rebuilds and the link is live:
+   `https://<your-site>/prompts/<slug>`
+
+Drafts (`draft: true`) show up on `localhost` only, so you can preview before publishing.
+`npm run build` also generates per-guide link previews (title + summary) for WhatsApp, Instagram DMs, LinkedIn, etc.
+
+## 🗂️ Editing content
+
+| What | File |
+| --- | --- |
+| Name, bio, socials, resume links, stats | `src/data/profile.js` |
+| Experience & education | `src/data/career.js` |
+| Skills & marquee | `src/data/skills.js` |
+| Projects | `src/data/projects.js` |
+| Prompt guides | `src/data/prompts.js` |
+| Design tokens (colours, fonts) | top of `src/styles.css` |
 
 ## 🛠️ Technologies Used
 
-- **Frontend:** React 18, Framer Motion, CSS3
-- **Animations:** Framer Motion, GSAP
+- **Frontend:** React 18, React Router, Framer Motion, CSS
 - **Email Service:** EmailJS
-- **Icons:** BoxIcons, Unicons
-- **Deployment:** Netlify
+- **Icons:** BoxIcons
+- **Deployment:** Netlify (`public/_redirects` enables shareable deep links)
 
 ## 📱 Contact Information
 
@@ -116,16 +130,14 @@ I'm **Adarsh Priyadarshi**, a passionate Full Stack Developer with 1+ years of e
 
 ```
 src/
-├── components/
-│   ├── about/          # About section
-│   ├── contact/        # Contact form
-│   ├── education/      # Education timeline
-│   ├── home/           # Hero section
-│   ├── skill/          # Skills showcase
-│   └── work/           # Projects showcase
-├── constants/          # Data constants
-├── assets/            # Images and files
-└── App.js             # Main application
+├── components/   # Layout (nav, ⌘K palette, footer), PromptCard, UI primitives
+├── data/         # All site content — edit these files
+├── lib/          # Hooks and prompt helpers
+├── pages/        # Home, Prompts, PromptDetail, NotFound
+├── assets/       # Images
+└── styles.css    # Design system + all styles
+scripts/
+└── prerender-meta.mjs  # Post-build link previews for prompt guides
 ```
 
 ## 🤝 Contributing

@@ -2,7 +2,7 @@
   "name": "adarsh-portfolio",
   "version": "0.1.0",
   "private": true,
-  "description": "Professional portfolio website for Adarsh Priyadarshi - Full Stack Developer",
+  "description": "Portfolio and Prompt Library of Adarsh Priyadarshi — Full Stack Developer",
   "author": "Adarsh Priyadarshi",
   "homepage": "https://adarshpriyadarshi.netlify.app/",
   "dependencies": {
@@ -10,21 +10,18 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "dotenv": "^16.3.1",
     "framer-motion": "^10.12.17",
-    "gsap": "^3.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
-    "react-spinners": "^0.13.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "postbuild": "node scripts/prerender-meta.mjs",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
