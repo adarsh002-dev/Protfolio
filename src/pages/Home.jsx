@@ -234,48 +234,106 @@ const ProjectCover = ({ p }) =>
     </div>
   );
 
-const Work = () => (
-  <section className="section container" id="work">
-    <SectionHead index="03" eyebrow="Selected work" title="Things I've" accent="shipped." />
-    <div className="work-grid">
-      {projects.map((p, i) => (
-        <Reveal key={p.title} delay={0.05 * (i % 2)} className={`card project ${p.featured ? "project-featured" : ""}`} onMouseMove={spotlight}>
-          <div className="project-cover">
-            <ProjectCover p={p} />
-          </div>
-          <div className="project-body">
-            <div className="project-meta">
-              <span className="mini-label">{p.kind}</span>
-              <span className="project-num">{String(i + 1).padStart(2, "0")}</span>
+const ProjectCard = ({ p, i, num }) => (
+  <Reveal delay={0.05 * (i % 2)} className={`card project ${p.featured ? "project-featured" : ""}`} onMouseMove={spotlight}>
+    <div className="project-cover">
+      <ProjectCover p={p} />
+    </div>
+    <div className="project-body">
+      <div className="project-meta">
+        <span className="mini-label">{p.kind}</span>
+        <span className="project-num">{String(num).padStart(2, "0")}</span>
+      </div>
+      <h3 className="project-title">{p.title}</h3>
+      <p className="project-desc">{p.description}</p>
+      <div className="chips chips-sm">
+        {p.stack.map((s) => (
+          <span key={s} className="chip">{s}</span>
+        ))}
+      </div>
+      <div className="project-links">
+        {p.live && (
+          <a href={p.live} target="_blank" rel="noreferrer" className="link-arrow">
+            Live site <Icon name="bx-up-arrow-alt" className="rot45" />
+          </a>
+        )}
+        {p.github && (
+          <a href={p.github} target="_blank" rel="noreferrer" className="link-arrow">
+            Code <Icon name="bxl-github" />
+          </a>
+        )}
+      </div>
+    </div>
+  </Reveal>
+);
+
+const MORE_VISIBLE = 5;
+
+const Work = () => {
+  const recent = projects.filter((p) => p.group === "recent");
+  const more = projects.filter((p) => p.group === "more");
+  const earlier = projects.filter((p) => p.group === "earlier");
+  const [showAll, setShowAll] = useState(false);
+  const shownMore = showAll ? more : more.slice(0, MORE_VISIBLE);
+
+  return (
+    <section className="section container" id="work">
+      <SectionHead index="03" eyebrow="Selected work" title="Things I've" accent="shipped." />
+
+      <h3 className="work-group">Recent builds <span>{recent.length}</span></h3>
+      <div className="work-grid">
+        {recent.map((p, i) => (
+          <ProjectCard key={p.title} p={p} i={i} num={i + 1} />
+        ))}
+      </div>
+
+      <h3 className="work-group">More projects <span>{more.length}</span></h3>
+      <div className="more-list">
+        {shownMore.map((p) => (
+          <Reveal key={p.title} className="more-row" onMouseMove={spotlight}>
+            <div className="more-main">
+              <h4>{p.title}</h4>
+              <p>{p.description}</p>
             </div>
-            <h3 className="project-title">{p.title}</h3>
-            <p className="project-desc">{p.description}</p>
-            <div className="chips chips-sm">
-              {p.stack.map((s) => (
+            <div className="chips chips-sm more-stack">
+              {p.stack.slice(0, 4).map((s) => (
                 <span key={s} className="chip">{s}</span>
               ))}
             </div>
-            <div className="project-links">
+            <div className="more-meta">
+              <span className="mini-label">{p.kind}</span>
               {p.live && (
                 <a href={p.live} target="_blank" rel="noreferrer" className="link-arrow">
-                  Live site <Icon name="bx-up-arrow-alt" className="rot45" />
+                  Live <Icon name="bx-up-arrow-alt" className="rot45" />
                 </a>
               )}
-              <a href={p.github} target="_blank" rel="noreferrer" className="link-arrow">
-                Code <Icon name="bxl-github" />
-              </a>
             </div>
-          </div>
-        </Reveal>
-      ))}
-    </div>
-    <Reveal className="work-more">
-      <a href={profile.socials.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
-        More on GitHub <Icon name="bx-right-arrow-alt" />
-      </a>
-    </Reveal>
-  </section>
-);
+          </Reveal>
+        ))}
+      </div>
+      {more.length > MORE_VISIBLE && (
+        <div className="work-more">
+          <button type="button" className="btn btn-ghost" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll}>
+            {showAll ? "Show fewer" : `Show all ${more.length}`} <Icon name={showAll ? "bx-chevron-up" : "bx-chevron-down"} />
+          </button>
+        </div>
+      )}
+
+      <h3 className="work-group">Earlier projects <span>{earlier.length}</span></h3>
+      <div className="work-grid">
+        {earlier.map((p, i) => (
+          <ProjectCard key={p.title} p={p} i={i} num={recent.length + more.length + i + 1} />
+        ))}
+      </div>
+
+      <Reveal className="work-more">
+        <a href={profile.socials.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
+          More on GitHub <Icon name="bx-right-arrow-alt" />
+        </a>
+      </Reveal>
+    </section>
+  );
+};
 
 /* ─────────────────────────── PROMPTS TEASER ─────────────────────────── */
 const PromptsTeaser = () => {
