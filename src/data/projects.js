@@ -42,18 +42,18 @@ export const projects = [
     live: null,
     group: "recent",
   },
-  {
-    title: "Chakkr — AI Influencer Studio",
-    kind: "AI · Image & Video",
-    image: null,
-    year: "2026",
-    description:
-      "Design a consistent AI character, generate images and videos of them and schedule posts. 4 languages (with RTL), credits ledger with automatic refunds, moderation and an admin console.",
-    stack: ["Next.js 15", "fal.ai", "next-intl", "Supabase", "Paddle"],
-    github: null,
-    live: "https://chakkr.app",
-    group: "recent",
-  },
+  // {
+  //   title: "Chakkr — AI Influencer Studio",
+  //   kind: "AI · Image & Video",
+  //   image: null,
+  //   year: "2026",
+  //   description:
+  //     "Design a consistent AI character, generate images and videos of them and schedule posts. 4 languages (with RTL), credits ledger with automatic refunds, moderation and an admin console.",
+  //   stack: ["Next.js 15", "fal.ai", "next-intl", "Supabase", "Paddle"],
+  //   github: null,
+  //   live: "https://chakkr.app",
+  //   group: "recent",
+  // },
   {
     title: "Excel Format Mapper",
     kind: "AI · Data tools",
